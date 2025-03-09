@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Cover from "../background/cover.png";
 
 // The UI should occupy the full height of the screen.
 export const Layout = styled.div`
@@ -6,5 +7,6 @@ export const Layout = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
-  background: ${({ theme }) => theme.colors.background};
+  background-image: url(${Cover});
+  background-size: cover;
 `;

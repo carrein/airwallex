@@ -2,14 +2,9 @@ import { DefaultTheme } from "styled-components";
 
 export const theme: DefaultTheme = {
   colors: {
-    background: "#FFF4F4",
-    primary: "#012E40",
-    secondary: "#8FC1B5",
-  },
-  fontSizes: {
-    small: "12px",
-    medium: "16px",
-    large: "24px",
+    white: "#FFF4F4",
+    primary: "#2D3E40",
+    secondary: "#93BFB7",
   },
   spacing: {
     small: "8px",

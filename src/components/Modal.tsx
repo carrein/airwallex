@@ -9,7 +9,7 @@ export const Modal = styled(ReactModal)`
     right: 20%;
     bottom: 20%;
   }
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.white};
   border: 2px solid #182121;
   padding: 24px;
 `;

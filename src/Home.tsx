@@ -1,23 +1,15 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import styled from "styled-components";
 import { Body } from "./components/Body";
 import { Button } from "./components/Button";
-import { Content } from "./components/Content";
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { Input } from "./components/Input";
+import { Footer } from "./components/footer/Footer";
+import { Header } from "./components/header/Header";
 import { Layout } from "./components/Layout";
 import { Column } from "./components/layout/Column";
 import { Modal } from "./components/Modal";
-import {
-  Brand,
-  Paragraph,
-  Petite,
-  Tiny,
-  Title,
-} from "./components/typography/Typography";
+import { Paragraph, Title } from "./components/typography/Typography";
 import { ENDPOINT } from "./constants/constants";
 import { InviteRegistrationForm } from "./registration/RegistrationForm";
 import { RegistrationSuccess } from "./registration/RegistrationSuccess";
@@ -60,25 +52,12 @@ export const Home = () => {
     });
   };
 
-  function openModal() {
-    setIsModalOpen(true);
-  }
-
-  function afterOpenModal() {}
-
-  function closeModal() {
-    setIsModalOpen(false);
-  }
-
   return (
     <>
       <Modal
-        className="modal"
         isOpen={isModalOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
+        onRequestClose={() => setIsModalOpen(false)}
         onAfterClose={() => setIsModalSuccess(false)}
-        contentLabel="Example Modal"
       >
         {isModalSuccess ? (
           <RegistrationSuccess />
@@ -87,51 +66,32 @@ export const Home = () => {
         )}
       </Modal>
       <Layout>
-        <Header>
-          <Brand>Broccoli & Co.</Brand>
-        </Header>
+        <Header />
         <Body>
           <BodyColumn>
             <TitleColumn>
-              <Title>A better way to enjoy everyday.</Title>
-              <Paragraph>Be the first to know when we launch</Paragraph>
+              <Title>A better way to enjoy everyday</Title>
+              <Paragraph>Be the first to know when we launch!</Paragraph>
             </TitleColumn>
-            <Button onClick={openModal}>Be the first to know</Button>
+            <Button onClick={() => setIsModalOpen(true)}>
+              Be the first to know!
+            </Button>
           </BodyColumn>
         </Body>
-        <Footer>
-          <FooterColumn>
-            <Petite>Made with ♥️ in Singapore.</Petite>
-            <Petite>All rights reserved © 2025 Broccoli & Co.</Petite>
-          </FooterColumn>
-        </Footer>
+        <Footer />
       </Layout>
     </>
   );
 };
 
-const FullWidthColumn = styled(Column)`
-  width: 100%;
-`;
-
-const FormColumn = styled(Column)`
-  gap: ${({ theme }) => theme.spacing.medium};
-`;
-
 const BodyColumn = styled(Column)`
   align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing.medium};
+  gap: ${({ theme }) => theme.spacing.xlarge};
 `;
 
 const TitleColumn = styled(Column)`
   align-items: center;
   justify-content: center;
-  gap: 4px;
-`;
-
-const FooterColumn = styled(Column)`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.small};
 `;
