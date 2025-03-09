@@ -41,9 +41,9 @@ export const Home = () => {
                 Be the first to know when we launch!
               </StyledSubtitle>
             </TitleColumn>
-            <Button onClick={() => setInviteModalOpen(true)}>
+            <StyledButton onClick={() => setInviteModalOpen(true)}>
               Discover What Awaits
-            </Button>
+            </StyledButton>
           </BodyColumn>
         </Body>
         <Footer />
@@ -71,4 +71,10 @@ const TitleColumn = styled(Column)`
   align-items: center;
   justify-content: center;
   gap: ${({ theme }) => theme.spacing.small};
+`;
+
+const StyledButton = styled(Button)`
+  &::after {
+    border: 2px solid ${({ theme }) => theme.colors.white};
+  }
 `;

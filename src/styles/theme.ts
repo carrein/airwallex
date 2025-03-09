@@ -5,6 +5,7 @@ export const theme: DefaultTheme = {
     white: "#FFF4F4",
     primary: "#2D3E40",
     secondary: "#93BFB7",
+    error: "#D92B3A",
   },
   spacing: {
     small: "8px",

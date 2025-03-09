@@ -7,8 +7,8 @@ export const Footer = () => {
   return (
     <StyledFooter>
       <FooterColumn>
-        <Petite>Made with ♥️ in Singapore.</Petite>
-        <Petite>All rights reserved © 2025 Broccoli & Co.</Petite>
+        <StyledPetite>Made with ♥️ in Singapore.</StyledPetite>
+        <StyledPetite>All rights reserved © 2025 Broccoli & Co.</StyledPetite>
       </FooterColumn>
     </StyledFooter>
   );
@@ -23,4 +23,8 @@ const FooterColumn = styled(Column)`
   width: 100%;
   align-items: center;
   justify-content: center;
+`;
+
+const StyledPetite = styled(Petite)`
+  color: ${({ theme }) => theme.colors.white};
 `;
