@@ -73,6 +73,7 @@ export const InviteRegistrationForm = ({
   const handleSubmitForm: SubmitHandler<InviteRegistrationFormFields> = (
     data
   ) => {
+    setError("");
     registerMutation.mutate({
       name: data.fullName,
       email: data.email,
