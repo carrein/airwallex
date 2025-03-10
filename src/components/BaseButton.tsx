@@ -1,20 +1,4 @@
 import styled from "styled-components";
-import { Spinner } from "./Spinner";
-
-type ButtonProps = {
-  isLoading?: boolean;
-} & React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-export const Button = ({ isLoading = false, ...rest }: ButtonProps) => {
-  if (isLoading)
-    return (
-      <BaseButton>
-        <Spinner />
-      </BaseButton>
-    );
-
-  return <BaseButton {...rest} />;
-};
 
 // TODO:
 export const BaseButton = styled.button`
@@ -22,6 +6,7 @@ export const BaseButton = styled.button`
   color: ${({ theme }) => theme.colors.primary};
   border: none;
   display: flex;
+  align-items: center;
   justify-content: center;
   font-size: 1.25rem;
   font-weight: 700;
@@ -32,6 +17,7 @@ export const BaseButton = styled.button`
   transform: rotate(-2deg);
   user-select: none;
   touch-action: manipulation;
+  min-height: 52px;
 
   &:focus {
     outline: none;

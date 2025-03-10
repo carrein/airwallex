@@ -1,4 +1,20 @@
 import styled, { keyframes } from "styled-components";
+import { BaseButton } from "../BaseButton";
+
+type ButtonProps = {
+  isLoading?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = ({ isLoading = false, ...rest }: ButtonProps) => {
+  if (isLoading)
+    return (
+      <BaseButton>
+        <Spinner />
+      </BaseButton>
+    );
+
+  return <BaseButton {...rest} />;
+};
 
 const rotation = keyframes`
   0% {
@@ -10,9 +26,9 @@ const rotation = keyframes`
 `;
 
 // Styled component for the loader
-export const Spinner = styled.div`
-  width: 20px;
-  height: 20px;
+const Spinner = styled.div`
+  width: 24px;
+  height: 24px;
   border: 5px solid ${({ theme }) => theme.colors.primary};
   border-bottom-color: transparent;
   border-radius: 50%;

@@ -10,8 +10,8 @@ export const RegistrationSuccess = () => {
       <SuccessSvg />
       <Title>All set!</Title>
       <Petite>
-        You'll get an email invitation when our product launches. <br /> Thank
-        you for your interest in Broccoli & Co.
+        You'll get an email invitation at when our product launches. <br />{" "}
+        Thank you for your interest in Broccoli & Co.
       </Petite>
     </StyledColumn>
   );

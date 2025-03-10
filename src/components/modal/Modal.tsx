@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { BaseModal } from "../BaseModal";
-import { ModalCloseButton } from "./ModalCloseButton";
+import { CloseButton } from "./CloseButton";
 
 // Bind modal for accessibility.
-BaseModal.setAppElement("#root");
+if (process.env.NODE_ENV !== "test") BaseModal.setAppElement("#root");
 
 export const Modal = ({
   children,
@@ -13,7 +13,7 @@ export const Modal = ({
   return (
     <BaseModal onRequestClose={onRequestClose} {...rest}>
       <ModalHeader>
-        <ModalCloseButton onClick={onRequestClose}>✘</ModalCloseButton>
+        <CloseButton onClick={onRequestClose}>✘</CloseButton>
       </ModalHeader>
       {children}
     </BaseModal>

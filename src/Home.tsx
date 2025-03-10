@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Button } from "./components/Button";
+import { Button } from "./components/core/Button";
 import { Footer } from "./components/footer/Footer";
 import { Header } from "./components/header/Header";
 import { Body } from "./components/layout/Body";

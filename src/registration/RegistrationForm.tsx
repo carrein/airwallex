@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
-import { Button } from "../components/Button";
+import { Button } from "../components/core/Button";
 import { Input } from "../components/form/Input";
 import { Column } from "../components/layout/Column";
 import { Error, Petite } from "../components/typography/Typography";
@@ -121,7 +121,6 @@ export const InviteRegistrationForm = ({
         />
       </FormColumn>
       <Align>
-        <Button isLoading={true} />
         <Button isLoading={mutation.isPending} type="submit">
           I want in!
         </Button>
