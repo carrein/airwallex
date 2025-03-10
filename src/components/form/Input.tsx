@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { BaseInput } from "../BaseInput";
-import { Error } from "../Error";
 import { Column } from "../layout/Column";
-import { Label } from "../typography/Typography";
+import { Error, Label } from "../typography/Typography";
 
 type InputProps = {
   id: string;
@@ -10,6 +9,7 @@ type InputProps = {
   errorMessage?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
+// Form input component that abstracts an input field with a label, styling and displaying optional errors.
 export const Input = ({
   id,
   label,
@@ -18,17 +18,17 @@ export const Input = ({
   ...rest
 }: InputProps) => {
   return (
-    <StyledInput>
+    <Container>
       <StyledLabel htmlFor={id}>
         {label} {required && <Required>*</Required>}
       </StyledLabel>
       <BaseInput required={required} {...rest} />
       {errorMessage && <Error>{errorMessage}</Error>}
-    </StyledInput>
+    </Container>
   );
 };
 
-const StyledInput = styled(Column)`
+const Container = styled(Column)`
   gap: ${({ theme }) => theme.spacing.small};
 `;
 

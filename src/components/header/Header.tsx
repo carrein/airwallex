@@ -4,14 +4,13 @@ import { Subtitle } from "../typography/Typography";
 // A fixed header that is always on top of the window.
 export const Header = () => {
   return (
-    <StyledHeader>
+    <Content>
       <Brand>Broccoli & Co.</Brand>
-    </StyledHeader>
+    </Content>
   );
 };
 
-export const StyledHeader = styled.div`
-  display: flex;
+export const Content = styled.div`
   padding: ${({ theme }) => theme.spacing.medium};
 `;
 

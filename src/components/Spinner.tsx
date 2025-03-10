@@ -1,6 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-// Keyframes for the rotation animation
 const rotation = keyframes`
   0% {
     transform: rotate(0deg);
@@ -12,8 +11,8 @@ const rotation = keyframes`
 
 // Styled component for the loader
 export const Spinner = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 20px;
+  height: 20px;
   border: 5px solid ${({ theme }) => theme.colors.primary};
   border-bottom-color: transparent;
   border-radius: 50%;

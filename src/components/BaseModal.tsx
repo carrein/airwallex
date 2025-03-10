@@ -1,6 +1,7 @@
 import ReactModal from "react-modal";
 import styled from "styled-components";
 
+// Base modal component. Compose this component instead of using it directly.
 export const BaseModal = styled(ReactModal)`
   &.ReactModal__Content {
     position: absolute;
@@ -16,6 +17,9 @@ export const BaseModal = styled(ReactModal)`
   min-width: 250px;
 
   // Larger width allowance for wider screens.
+  @media (min-width: 480px) {
+    min-width: 350px;
+  }
   @media (min-width: 768px) {
     min-width: 450px;
   }

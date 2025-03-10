@@ -1,11 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Body } from "./components/Body";
 import { Button } from "./components/Button";
 import { Footer } from "./components/footer/Footer";
 import { Header } from "./components/header/Header";
-import { Layout } from "./components/Layout";
+import { Body } from "./components/layout/Body";
 import { Column } from "./components/layout/Column";
+import { Layout } from "./components/layout/Layout";
 import { Modal } from "./components/modal/Modal";
 import { Subtitle, Title } from "./components/typography/Typography";
 import { InviteRegistrationForm } from "./registration/RegistrationForm";
