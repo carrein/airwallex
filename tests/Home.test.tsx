@@ -1,3 +1,6 @@
+// This is a rough E2E test suite for the application.
+// A future enhancement should look to split these test into individual files
+// and extend testing to individual components.
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
