@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
     src: url(${GoudyBookletter1911}) format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: fallback;
   }
 
   html,
