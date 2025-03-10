@@ -5,9 +5,12 @@ import { setupServer } from "msw/node";
 import { App } from "../src/App";
 import { ENDPOINT } from "../src/constants/constants";
 
+// Setup mock server
 const server = setupServer(
   http.post(ENDPOINT, async ({ request }) => {
     const data = (await request.json()) as { email: string };
+
+    // Mock response for already used email
     if (data.email === "usedemail@airwallex.com") {
       return new HttpResponse(
         JSON.stringify({
@@ -19,20 +22,23 @@ const server = setupServer(
         }
       );
     }
+
+    // Mock successful registration response
     return HttpResponse.json({ status: 200 });
   })
 );
 
+// Lifecycle hooks for server setup
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 describe("Home", () => {
-  it("expect landing page elements to be visible", () => {
+  it("should display landing page elements", () => {
     render(<App />);
-    // Brand.
+
+    // Check for brand and body text
     expect(screen.getByText("Broccoli & Co.")).toBeInTheDocument();
-    // Body.
     expect(
       screen.getByText("A better way to enjoy everyday")
     ).toBeInTheDocument();
@@ -42,18 +48,21 @@ describe("Home", () => {
     expect(
       screen.getByRole("button", { name: "Discover What Awaits" })
     ).toBeInTheDocument();
-    // Footer.
+
+    // Check for footer text
     expect(screen.getByText("Made with ♥️ in Singapore.")).toBeInTheDocument();
     expect(
       screen.getByText("All rights reserved © 2025 Broccoli & Co.")
     ).toBeInTheDocument();
   });
 
-  it("expect registration modal to be visible", async () => {
+  it("should display registration modal", async () => {
     render(<App />);
     await userEvent.click(
       screen.getByRole("button", { name: "Discover What Awaits" })
     );
+
+    // Check for input fields and button in the modal
     expect(
       screen.getByRole("textbox", { name: "fullName" })
     ).toBeInTheDocument();
@@ -66,7 +75,7 @@ describe("Home", () => {
     ).toBeInTheDocument();
   });
 
-  it("expect user to be able to close registration modal", async () => {
+  it("should allow user to close registration modal", async () => {
     render(<App />);
     await userEvent.click(
       screen.getByRole("button", { name: "Discover What Awaits" })
@@ -74,18 +83,19 @@ describe("Home", () => {
     await userEvent.click(screen.getByRole("button", { name: "✘" }));
   });
 
-  it("expect registration modal to flag invalid inputs", async () => {
+  it("should flag invalid inputs in registration modal", async () => {
     render(<App />);
-    // Expect "Sign Me Up!" button to not do anything on empty form.
     await userEvent.click(
       screen.getByRole("button", { name: "Discover What Awaits" })
     );
     await userEvent.click(screen.getByRole("button", { name: "Sign Me Up!" }));
+
+    // Check for error messages on empty form submission
     expect(
       screen.getByRole("textbox", { name: "fullName" })
     ).toBeInTheDocument();
 
-    // Error checking.
+    // Input invalid data
     await userEvent.type(
       screen.getByRole("textbox", { name: "fullName" }),
       "@"
@@ -99,6 +109,8 @@ describe("Home", () => {
       "invalid@invalid2"
     );
     await userEvent.click(screen.getByRole("button", { name: "Sign Me Up!" }));
+
+    // Check for specific error messages
     expect(
       screen.getByText("Full Name needs to be at least 3 characters long.")
     ).toBeInTheDocument();
@@ -107,6 +119,7 @@ describe("Home", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("Emails do not match.")).toBeInTheDocument();
 
+    // Input valid data
     await userEvent.type(
       screen.getByRole("textbox", { name: "fullName" }),
       "Athena"
@@ -122,14 +135,16 @@ describe("Home", () => {
     await userEvent.click(screen.getByRole("button", { name: "Sign Me Up!" }));
   });
 
-  it("expect registration modal to flag used emails", async () => {
+  it("should flag used emails in registration modal", async () => {
     render(<App />);
     await userEvent.click(
       screen.getByRole("button", { name: "Discover What Awaits" })
     );
+
+    // Input a used email
     await userEvent.type(
       screen.getByRole("textbox", { name: "fullName" }),
-      "usedemail@airwallex.com"
+      "Used Email User"
     );
     await userEvent.type(
       screen.getByRole("textbox", { name: "email" }),
@@ -140,15 +155,18 @@ describe("Home", () => {
       "usedemail@airwallex.com"
     );
     await userEvent.click(screen.getByRole("button", { name: "Sign Me Up!" }));
+
+    // Check for error message indicating the email is already in use
     await screen.findByText("Bad Request: Email is already in use");
-    // expect(screen.getByText("Email is already in use.")).toBeInTheDocument();
   });
 
-  it("expect registration modal to register successfully", async () => {
+  it("should register successfully with valid inputs", async () => {
     render(<App />);
     await userEvent.click(
       screen.getByRole("button", { name: "Discover What Awaits" })
     );
+
+    // Input valid registration data
     await userEvent.type(
       screen.getByRole("textbox", { name: "fullName" }),
       "Athena"
@@ -162,7 +180,11 @@ describe("Home", () => {
       "athena@valid.com"
     );
     await userEvent.click(screen.getByRole("button", { name: "Sign Me Up!" }));
+
+    // Check for success message
     await screen.findByText("All set!");
+
+    // Close the modal
     await userEvent.click(screen.getByRole("button", { name: "✘" }));
   });
 });
