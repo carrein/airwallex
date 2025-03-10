@@ -21,11 +21,6 @@ export const Petite = styled.span`
   font-size: 1rem;
 `;
 
-export const Tiny = styled.span`
-  ${BaseTypography}
-  font-size: 1rem;
-`;
-
 export const Label = styled.label`
   ${BaseTypography}
   font-size: 1.2rem;

@@ -13,6 +13,7 @@ export const BaseModal = styled(ReactModal)`
   // Extra padding to optically balance modal close button and CTA.
   padding: ${({ theme }) =>
     `${theme.spacing.large} ${theme.spacing.xlarge} ${theme.spacing.xlarge} ${theme.spacing.xlarge}`};
+  min-width: 250px;
 
   // Larger width allowance for wider screens.
   @media (min-width: 768px) {

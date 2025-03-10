@@ -6,6 +6,7 @@ declare module "styled-components" {
       white: string;
       primary: string;
       secondary: string;
+      tertiary: string;
       error: string;
     };
     spacing: {

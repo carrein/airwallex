@@ -1,36 +1,46 @@
 import styled from "styled-components";
+import { Spinner } from "./Spinner";
 
-// Styled button component
-export const Button = styled.button`
+type ButtonProps = {
+  isLoading?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
+
+export const Button = ({ isLoading = false, ...rest }: ButtonProps) => {
+  if (isLoading)
+    return (
+      <BaseButton>
+        <Spinner />
+      </BaseButton>
+    );
+
+  return <BaseButton {...rest} />;
+};
+
+// TODO:
+export const BaseButton = styled.button`
   background-color: ${({ theme }) => theme.colors.secondary};
-  border: 0 solid #e5e7eb;
-  box-sizing: border-box;
   color: ${({ theme }) => theme.colors.primary};
+  border: none;
   display: flex;
-  font-size: 1rem;
-  font-weight: 700;
   justify-content: center;
-  line-height: 1.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
   padding: 0.75rem 1.65rem;
-  position: relative;
-  text-align: center;
-  text-decoration: none; /* Removed invalid text-decoration value */
   width: 100%;
-  max-width: 360px;
+  max-width: 300px;
   cursor: pointer;
   transform: rotate(-2deg);
   user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
 
   &:focus {
-    outline: 0;
+    outline: none;
   }
 
   &::after {
     content: "";
     position: absolute;
-    border: 2px solid white;
+    border: 2px solid ${({ theme }) => theme.colors.primary};
     bottom: 4px;
     left: 4px;
     width: calc(100% - 1px);
@@ -40,10 +50,5 @@ export const Button = styled.button`
   &:hover::after {
     bottom: 2px;
     left: 2px;
-  }
-
-  @media (min-width: 768px) {
-    padding: 0.75rem 3rem;
-    font-size: 1.25rem;
   }
 `;
