@@ -13,8 +13,9 @@ type InputProps = {
 export const Input = ({
   id,
   label,
-  required,
+  required = false,
   errorMessage,
+  name,
   ...rest
 }: InputProps) => {
   return (
@@ -22,7 +23,7 @@ export const Input = ({
       <StyledLabel htmlFor={id}>
         {label} {required && <Required>*</Required>}
       </StyledLabel>
-      <BaseInput required={required} {...rest} />
+      <BaseInput aria-label={name} required={required} name={name} {...rest} />
       {errorMessage && <Error>{errorMessage}</Error>}
     </Container>
   );

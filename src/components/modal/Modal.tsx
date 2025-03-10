@@ -11,7 +11,11 @@ export const Modal = ({
   ...rest
 }: ReactModal.Props) => {
   return (
-    <BaseModal onRequestClose={onRequestClose} {...rest}>
+    <BaseModal
+      ariaHideApp={process.env.NODE_ENV !== "test"}
+      onRequestClose={onRequestClose}
+      {...rest}
+    >
       <ModalHeader>
         <CloseButton onClick={onRequestClose}>✘</CloseButton>
       </ModalHeader>
