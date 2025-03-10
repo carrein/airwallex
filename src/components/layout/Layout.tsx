@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Cover from "../../background/cover.png";
+import Cover from "../../background/cover.webp";
 
 // The UI should occupy the full height of the screen.
 export const Layout = styled.div`
