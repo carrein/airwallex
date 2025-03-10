@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// TODO:
+// Base button component. Opt to compose this component instead of using it directly.
 export const BaseButton = styled.button`
   background-color: ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.primary};
@@ -36,5 +36,16 @@ export const BaseButton = styled.button`
   &:hover::after {
     bottom: 2px;
     left: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.colors.grey};
+  }
+
+  &:disabled::after {
+    bottom: 2px;
+    left: 2px;
+    border: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `;

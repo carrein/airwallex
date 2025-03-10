@@ -8,24 +8,24 @@ import { Column } from "../components/layout/Column";
 import { Error, Petite } from "../components/typography/Typography";
 import { ENDPOINT } from "../constants/constants";
 
-export type InviteRegistrationFormFields = {
+type InviteRegistrationFormFields = {
   fullName: string;
   email: string;
   confirmEmail: string;
 };
 
-type MutationData = {
+type RegisterMutationData = {
   name: string;
   email: string;
 };
 
-type InviteRegistrationFormProps = {
-  setIsRegistrationSuccess: Dispatch<SetStateAction<boolean>>;
+type MutationErrorResponse = {
+  errorMessage: string;
 };
 
-type ErrorResponse = {
-  errorMessage: string; // Adjust this according to the actual structure of your error response
-  // Add other properties if needed
+// TODO: Cheat a little here by passing a dispatch. Ideally we hoist state into a context to prevent state view coupling.
+type InviteRegistrationFormProps = {
+  setIsRegistrationSuccess: Dispatch<SetStateAction<boolean>>;
 };
 
 export const InviteRegistrationForm = ({
@@ -40,37 +40,40 @@ export const InviteRegistrationForm = ({
   } = useForm<InviteRegistrationFormFields>();
 
   // https://github.com/TanStack/query/discussions/1385
-  const mutation = useMutation<unknown, ErrorResponse, MutationData>({
-    mutationFn: (data) =>
-      fetch(ENDPOINT, {
+  // TODO: Ideally create a wrapper around this instead of baking fetch directly in component.
+  const registerMutation = useMutation<
+    unknown,
+    MutationErrorResponse,
+    RegisterMutationData
+  >({
+    mutationFn: async (data) => {
+      const response = await fetch(ENDPOINT, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // Set the content type to JSON
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), // Send the data as JSON
-      }).then((res) => {
-        if (!res.ok) {
-          // If the response is not ok, throw an error
-          return res.json().then((errorData) => {
-            throw errorData;
-          });
-        }
-        return res.json(); // Return the response data if successful
-      }),
+        body: JSON.stringify(data),
+      });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw errorData;
+      }
+
+      return response.json();
+    },
     onSuccess: () => {
       setIsRegistrationSuccess(true);
     },
     onError: (error) => {
-      console.log("e", error);
       setError(error.errorMessage);
     },
   });
 
-  const handleSubmitForm: SubmitHandler<InviteRegistrationFormFields> = async (
+  const handleSubmitForm: SubmitHandler<InviteRegistrationFormFields> = (
     data
   ) => {
-    mutation.mutate({
+    registerMutation.mutate({
       name: data.fullName,
       email: data.email,
     });
@@ -104,7 +107,7 @@ export const InviteRegistrationForm = ({
           {...register("email", {
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Entered value does not match email format.",
+              message: "Please enter a valid email address.",
             },
           })}
         />
@@ -115,23 +118,23 @@ export const InviteRegistrationForm = ({
           required
           label="Confirm Email"
           {...register("confirmEmail", {
-            validate: (value: string) =>
+            validate: (value) =>
               value === watch("email") || "Emails do not match.",
           })}
         />
       </FormColumn>
-      <Align>
-        <Button isLoading={mutation.isPending} type="submit">
-          I want in!
+      <ButtonContainer>
+        <Button isLoading={registerMutation.isPending} type="submit">
+          Sign Me Up!
         </Button>
-      </Align>
+      </ButtonContainer>
       {error && <Error>{error}</Error>}
     </Form>
   );
 };
 
 const FullNameColumn = styled(Column)`
-  gap: 8px;
+  gap: ${({ theme }) => theme.spacing.small};
 `;
 
 const FormColumn = styled(Column)`
@@ -146,7 +149,7 @@ const Form = styled.form`
   gap: ${({ theme }) => theme.spacing.xlarge};
 `;
 
-const Align = styled.div`
+const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

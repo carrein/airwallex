@@ -1,7 +1,7 @@
 import ReactModal from "react-modal";
 import styled from "styled-components";
 
-// Base modal component. Compose this component instead of using it directly.
+// Base modal component. Opt to compose this component instead of using it directly.
 export const BaseModal = styled(ReactModal)`
   &.ReactModal__Content {
     position: absolute;

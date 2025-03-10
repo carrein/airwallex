@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// Base input component. Compose this component instead of using it directly.
+// Base input component. Opt to compose this component instead of using it directly.
 export const BaseInput = styled.input`
   font-size: 1.2rem;
   padding: ${({ theme }) => theme.spacing.small};

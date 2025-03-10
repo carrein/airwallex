@@ -8,6 +8,7 @@ declare module "styled-components" {
       secondary: string;
       tertiary: string;
       error: string;
+      grey: string;
     };
     spacing: {
       small: string;

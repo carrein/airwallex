@@ -5,10 +5,11 @@ type ButtonProps = {
   isLoading?: boolean;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
+// Abstraction over BaseButton to support basic loading state.
 export const Button = ({ isLoading = false, ...rest }: ButtonProps) => {
   if (isLoading)
     return (
-      <BaseButton>
+      <BaseButton disabled>
         <Spinner />
       </BaseButton>
     );
@@ -25,7 +26,7 @@ const rotation = keyframes`
   }
 `;
 
-// Styled component for the loader
+// Spinner can be divorced from this file if there is a use case for it without a button.
 const Spinner = styled.div`
   width: 24px;
   height: 24px;
