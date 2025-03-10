@@ -31,6 +31,8 @@ Our choice of serif font, Goudy Bookletter 1911, provides a classy look to the l
 
 The tilted stylized button also plays into our design language, with our CTA buttons and modal playing into the same themes. We retain best UX practices in designing forms. Forms are powered by [react-hook-form](https://react-hook-form.com/), giving us better control over mutating the form state especially handling errors.
 
+![Modal](https://github.com/user-attachments/assets/f2235a32-3eef-4e27-9660-27ccbdc0879d)
+
 Finally, we leverage [styled-components](https://styled-components.com/) to theme our page. We utilize the `createGlobalStyle` to reset the default HTML styling. We perform all our CSS through this library which makes composition extremely intuitive through its syntax.
 
 Notably, we also do not rely on a component library. These libraries are great for scaffolding quick prototype applications but are often bloated (even with tree-shaking), eschew accessibility for style and are extremely hard to eject once a project grows. The last point is especially pertinent since large companies often have a branding design language to follow. These custom branding often clash with the pre-defined styles of component libraries resulting in ugly style overrides. It is often better to work up from the core HTML elements to mitigate this.
