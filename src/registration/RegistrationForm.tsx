@@ -3,11 +3,9 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import styled from "styled-components";
 import { Button } from "../components/Button";
-import { Error } from "../components/Error";
 import { Input } from "../components/form/Input";
 import { Column } from "../components/layout/Column";
-import { Spinner } from "../components/Spinner";
-import { Petite } from "../components/typography/Typography";
+import { Error, Petite } from "../components/typography/Typography";
 import { ENDPOINT } from "../constants/constants";
 
 export type InviteRegistrationFormFields = {
@@ -25,6 +23,11 @@ type InviteRegistrationFormProps = {
   setIsRegistrationSuccess: Dispatch<SetStateAction<boolean>>;
 };
 
+type ErrorResponse = {
+  errorMessage: string; // Adjust this according to the actual structure of your error response
+  // Add other properties if needed
+};
+
 export const InviteRegistrationForm = ({
   setIsRegistrationSuccess,
 }: InviteRegistrationFormProps) => {
@@ -37,7 +40,7 @@ export const InviteRegistrationForm = ({
   } = useForm<InviteRegistrationFormFields>();
 
   // https://github.com/TanStack/query/discussions/1385
-  const mutation = useMutation<unknown, unknown, MutationData>({
+  const mutation = useMutation<unknown, ErrorResponse, MutationData>({
     mutationFn: (data) =>
       fetch(ENDPOINT, {
         method: "POST",
@@ -118,6 +121,7 @@ export const InviteRegistrationForm = ({
         />
       </FormColumn>
       <Align>
+        <Button isLoading={true} />
         <Button isLoading={mutation.isPending} type="submit">
           I want in!
         </Button>
